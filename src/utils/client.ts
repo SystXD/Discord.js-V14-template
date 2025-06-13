@@ -10,6 +10,7 @@ import path from "path";
 import { getFiles, logger } from "@utils/utils";
 import { Command } from "@utils/command";
 import { ChatInputValidator, LegacyValidator } from "@utils/types";
+import { MongoConnect } from "@core/db";
 
 type validatorCase = "slashValidators" | "legacyValidators";
 type commandCase = "ChatInput" | "Legacy";
@@ -55,14 +56,14 @@ export class Xantrack extends Client {
       const command = require(file.filePath)?.default;
       if (!command) {
         logger.warn(
-          `"${file.fileName}" skipped — no default export found or invalid object.`,
+          `"${file.fileName}" skipped — no default export found or invalid object.`
         );
         continue;
       }
 
       if (!(command instanceof Command)) {
         logger.warn(
-          `"${file.fileName}" is not a valid Command instance, skipping.`,
+          `"${file.fileName}" is not a valid Command instance, skipping.`
         );
         continue;
       }
@@ -79,7 +80,7 @@ export class Xantrack extends Client {
       const validator = require(file.filePath)?.default;
       if (!validator) {
         logger.warn(
-          `"${file.fileName}" skipped — no default export found or invalid object.`,
+          `"${file.fileName}" skipped — no default export found or invalid object.`
         );
         continue;
       }
@@ -105,8 +106,9 @@ export class Xantrack extends Client {
       eventDir: string;
       slashValidator: string;
       legacyValidator: string;
-    },
+    }
   ) {
+    await MongoConnect();
     this.login(token);
     this.loadCommands(commandDir, "ChatInput");
     this.loadCommands(legacyDir, "Legacy");
