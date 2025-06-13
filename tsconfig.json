@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "esModuleInterop": true,
+    "module": "CommonJS",
+    "moduleResolution": "Node",
+    "strict": true,
+    "noImplicitAny": true,
+    "declaration": false,
+    "skipLibCheck": true,
+    "strictNullChecks": true,
+    "resolveJsonModule": true,
+    "outDir": "dist",
+    "paths": {
+      "@core/*": ["./src/*"],
+      "@commands/*": ["./src/commands/*"],
+      "@events/*": ["./src/events/*"],
+      "@models/*": ["./src/models/*"],
+      "@assets/*": ["./src/assets/*"],
+      "@packages/*": ["./src/packages/*"],
+      "@middlewares/*": ["./src/middlewares/*"],
+      "@buttons/*": ["./src/buttons/*"],
+      "@utils/*": ["./src/utils/*"]
+    }
+  },
+  "exclude": ["node_modules"]
+}
